@@ -1,3 +1,7 @@
 # RosRobot
 
-Include ROS program to communicate with arduino
+To include this package :
+
+cd ~/catkin_ws/src
+git clone <address>
+catkin_make
