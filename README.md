@@ -1,21 +1,21 @@
 # RosRobot
 
-To include this package :
+##To include this package :
 
-cd ~/catkin_ws/src
+> cd ~/catkin_ws/src
 
-git clone <address>
+> git clone <address>
   
-catkin_make
+> catkin_make
 
-To commit change to the project :
+##To commit change to the project :
 
-git add .
+> git add .
 
-git commit -m "Commit description"
+> git commit -m "Commit description"
 
-git push <repository_add> <branch>
+> git push <repository_add> <branch>
   
-to update the project with the modified repository :
+##To update the project with the modified repository :
 
-git pull <repository_add> <branch>
+> git pull <repository_add> <branch>
