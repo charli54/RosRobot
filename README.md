@@ -16,4 +16,6 @@ git commit -m "Commit description"
 
 git push <repository_add> <branch>
   
- 
+to update the project with the modified repository :
+
+git pull <repository_add> <branch>
