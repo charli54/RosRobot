@@ -1,14 +1,15 @@
 # RosRobot
 
 ## To include this package :
-
+```
 > `cd ~/catkin_ws/src`
 
 > git clone <address>
   
 > catkin_make
-> `git remode add <remote_name> <repository_add>`
 
+> `git remode add <remote_name> <repository_add>`
+```
 ## To commit change to the project :
 
 > git add .
