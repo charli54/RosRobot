@@ -21,9 +21,27 @@ long encoderVal[2]= {0,0};
 double dDis[2] = {0,0};
 long lastTime[2] = {0,0};
 
+double velTarget[2] = {0,0};
+
+//Publisher used to publish odometry from encoder
 ros::NodeHandle nh;
 geometry_msgs::Twist odoMsg;
 ros::Publisher pub("ard_odo", &odoMsg);
+
+geometry_msgs::Twist spdMsg;
+ros::Publisher info("ard_spd", &spdMsg);
+
+//suscriber used to sucribe to cmd_vel comming from the navigation stack
+//suscriber callback function
+void getVelocity(const geometry_msgs::Twist& CVel){
+    double vel_x = CVel.linear.x;
+    double vel_th = CVel.angular.z;
+
+    velTarget[0] = vel_x;
+    velTarget[1] = vel_th;   
+}
+//the suscriber
+ros::Subscriber<geometry_msgs::Twist> Sub("r2d2_diff_drive_controller/cmd_vel", &getVelocity );
 
 void setup() {
   Serial.begin(9600);
@@ -31,6 +49,8 @@ void setup() {
   lastTime[0] = millis();
   nh.initNode();
   nh.advertise(pub);
+  nh.advertise(info);
+  nh.subscribe(Sub);
 }
 
 void loop() {
@@ -43,7 +63,13 @@ void loop() {
     pub.publish(&odoMsg);
   }
   else{odoCount++;}
-  analogWrite(motorPin, 100);
+
+  spdMsg.linear.x = velTarget[0];
+  spdMsg.linear.y = velTarget[1];
+  
+  info.publish(&spdMsg);
+  
+  analogWrite(motorPin, int(velTarget[0] * 100));
   Serial.print("Speed: ");
   Serial.println(getSpeed());
   delay(100);
