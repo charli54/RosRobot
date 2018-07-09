@@ -2,7 +2,7 @@
 
 ## To include this package :
 
-> 'cd ~/catkin_ws/src'
+> `cd ~/catkin_ws/src`
 
 > git clone <address>
   
