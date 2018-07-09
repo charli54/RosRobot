@@ -1,5 +1,7 @@
 <?xml version="1.0"?>
-<robot name="simpleRobot">
+<robot name="simpleRobot" xmlns:xacro="http://ros.org/wiki/xacro">
+
+	<xacro:property name="width" value="0.25"/>
 
   <material name="white">
     <color rgba="1 1 1 1"/>
@@ -8,7 +10,7 @@
   <link name="base_link">
     <visual>
       <geometry>
-        <box size="0.25 0.2 0.02"/>
+        <box size="${width} 0.2 0.02"/>
       </geometry>
     </visual>
   </link>
@@ -53,7 +55,7 @@
     </visual>
   </link>
 
-  <joint name="base_to_roue_gauche" type="fixed">
+  <joint name="base_to_roue_gauche" type="continuous">
     <parent link="base_link"/>
     <child link="roue_gauche"/>
     <origin xyz="-0.125 0 0"/>
@@ -69,7 +71,7 @@
     </visual>
   </link>
 
-  <joint name="base_to_roue_droite" type="fixed">
+  <joint name="base_to_roue_droite" type="continious">
     <parent link="base_link"/>
     <child link="roue_droite"/>
     <origin xyz="0.125 0 0"/>
