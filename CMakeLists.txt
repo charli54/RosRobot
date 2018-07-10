@@ -203,11 +203,11 @@ include_directories(
 ## Build talker and listener
 include_directories(include ${catkin_INCLUDE_DIRS})
 
-#add_executable(listener src/listener.cpp)
-#target_link_libraries(listener ${catkin_LIBRARIES})
+add_executable(r_listener src/r_listener.cpp)
+target_link_libraries(r_listener ${catkin_LIBRARIES})
 
-add_executable(chatter src/chatter.cpp)
-target_link_libraries(chatter ${catkin_LIBRARIES})
+add_executable(r_chatter src/r_chatter.cpp)
+target_link_libraries(r_chatter ${catkin_LIBRARIES})
 
-add_executable(odoPublisher src/odoPublisher.cpp)
-target_link_libraries(odoPublisher ${catkin_LIBRARIES})
+add_executable(r_odoPublisher src/r_odoPublisher.cpp)
+target_link_libraries(r_odoPublisher ${catkin_LIBRARIES})
