@@ -61,22 +61,7 @@
 
   <xacro:base prefix="avant"  reflect="1"/>
   <xacro:base prefix="arriere"  reflect="-1"/>
-<!--
-  <link name="arriere">
-    <visual>
-      <geometry>
-        <cylinder length="0.02" radius="0.125"/>
-      </geometry>
-      
-    </visual>
-  </link>
 
-  <joint name="base_to_arriere" type="fixed">
-    <parent link="base_link"/>
-    <child link="arriere"/>
-    <origin xyz="0 -0.1 0"/>
-  </joint>
--->
 
   <xacro:macro name="wheel" params="prefix reflect">
 
@@ -107,18 +92,22 @@
   <transmission name="${prefix}_wheel_trans">
     <type>transmission_interface/SimpleTransmission</type>
     <actuator name="${prefix}_wheel_motor">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
     <joint name="base_to_roue_${prefix}">
-      <hardwareInterface>VelocityJointInterface</hardwareInterface>
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
     </joint>
   </transmission>
+
 
   </xacro:macro>
   
   <xacro:wheel prefix="droite"  reflect="1"/>
   <xacro:wheel prefix="gauche"  reflect="-1"/>
 
+<!--************************************************************************-->
+<!-- AJOUT DE ROUES LIBRE EN AVANT ET EN ARRIERE POUR EVITER LE BASCULEMENT -->
   <xacro:macro name="free-wheel" params="prefix reflect">
 
     <link name="roue_libre-${prefix}">
@@ -149,23 +138,9 @@
   
   <xacro:free-wheel prefix="avant"  reflect="1"/>
   <xacro:free-wheel prefix="arriere"  reflect="-1"/>
-<!--
-  <link name="roue_droite">
-    <visual>
-      <geometry>
-        <cylinder length="0.015" radius="0.06"/>
-      </geometry>
-      <origin rpy="0 1.5708 0" xyz="0.0075 0 0"/>
-      <material name="white"/>
-    </visual>
-  </link>
 
-  <joint name="base_to_roue_droite" type="continuous">
-    <parent link="base_link"/>
-    <child link="roue_droite"/>
-    <origin xyz="0.125 0 0"/>
-  </joint>
--->  
+
+<!-- GAZEBO PLUGIN -->  
   <gazebo>
     <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
       <robotNamespace>/</robotNamespace>
