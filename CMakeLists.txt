@@ -209,13 +209,9 @@ target_link_libraries(r_listener ${catkin_LIBRARIES})
 add_executable(r_chatter src/r_chatter.cpp)
 target_link_libraries(r_chatter ${catkin_LIBRARIES})
 
-<<<<<<< HEAD
-add_executable(odoPublisher src/odoPublisher.cpp)
-target_link_libraries(odoPublisher ${catkin_LIBRARIES})
-
 add_executable(send_odo_to_pid src/send_odo_to_pid.cpp)
 target_link_libraries(send_odo_to_pid ${catkin_LIBRARIES})
-=======
+
 add_executable(r_odoPublisher src/r_odoPublisher.cpp)
 target_link_libraries(r_odoPublisher ${catkin_LIBRARIES})
->>>>>>> 08256e2f75c1e19dead92c872bed5f0c043b75a9
+
