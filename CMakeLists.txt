@@ -211,3 +211,6 @@ target_link_libraries(chatter ${catkin_LIBRARIES})
 
 add_executable(odoPublisher src/odoPublisher.cpp)
 target_link_libraries(odoPublisher ${catkin_LIBRARIES})
+
+add_executable(send_odo_to_pid src/send_odo_to_pid.cpp)
+target_link_libraries(send_odo_to_pid ${catkin_LIBRARIES})
