@@ -1,5 +1,6 @@
 #include <ros.h>
 #include <geometry_msgs/Twist.h>
+#include <std_msgs/Float64.h>
 #include <Encoder.h>
 
 #define ENCODER_A 2
@@ -14,6 +15,10 @@ int accParam = 3;
 
 int odoWait = 3;
 int odoCount = 0;
+
+double vel_x = 0.0;
+
+int current_right_motor_input = 0;
 
 Encoder lEncoder(ENCODER_A, ENCODER_B);
 
@@ -33,15 +38,15 @@ ros::Publisher info("ard_spd", &spdMsg);
 
 //suscriber used to sucribe to cmd_vel comming from the navigation stack
 //suscriber callback function
-void getVelocity(const geometry_msgs::Twist& CVel){
-    double vel_x = CVel.linear.x;
-    double vel_th = CVel.angular.z;
+void getVelocity(const std_msgs::Float64& CVel){
+    vel_x = CVel.data;
+    //double vel_th = CVel.angular.z;
 
     velTarget[0] = vel_x;
-    velTarget[1] = vel_th;   
+    //velTarget[1] = vel_th;   
 }
 //the suscriber
-ros::Subscriber<geometry_msgs::Twist> Sub("r2d2_diff_drive_controller/cmd_vel", &getVelocity );
+ros::Subscriber<std_msgs::Float64> Sub("/left_wheel/control_effort", &getVelocity );
 
 void setup() {
   Serial.begin(9600);
@@ -65,11 +70,20 @@ void loop() {
   else{odoCount++;}
 
   spdMsg.linear.x = velTarget[0];
-  spdMsg.linear.y = velTarget[1];
+  //spdMsg.linear.y = velTarget[1];
   
   info.publish(&spdMsg);
+
+  current_right_motor_input += vel_x;
+
+  if(current_right_motor_input > 255){
+    current_right_motor_input = 255;  
+  }
+  else if(current_right_motor_input < 0){
+    current_right_motor_input = 0;
+  }
   
-  analogWrite(motorPin, int(velTarget[0] * 100));
+  analogWrite(motorPin, int(current_right_motor_input));
   Serial.print("Speed: ");
   Serial.println(getSpeed());
   delay(100);
