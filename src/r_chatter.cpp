@@ -15,7 +15,7 @@ int main(int argc, char **argv) {
      srand(time(0));
 
      //Sets the loop to publish at a rate of 10Hz
-     ros::Rate rate(10);
+     ros::Rate rate(1);
 
        while(ros::ok()) {
             //Declares the message to be sent

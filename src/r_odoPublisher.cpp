@@ -24,7 +24,7 @@ int main(int argc, char** argv){
   ros::Rate r(1.0);
   while(n.ok()){
 
-    ros::spinOnce();               // check for incoming messages
+                  // check for incoming messages
     current_time = ros::Time::now();
 
     //compute odometry in a typical way given the velocities of the robot
